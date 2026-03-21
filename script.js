@@ -3,11 +3,11 @@
    ============================================================ */
 const heroImages = [
   "https://www.figma.com/api/mcp/asset/17ad64bd-4dc3-439b-9d2e-78514d583bbd",
-  "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=570&h=570&fit=crop",
-  "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=570&h=570&fit=crop",
-  "https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=570&h=570&fit=crop",
-  "https://images.unsplash.com/photo-1565688534245-05d6b5be184a?w=570&h=570&fit=crop",
-  "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=570&h=570&fit=crop",
+  "assets/images/hero-carousel-01-industrial-piping-570.jpg",
+  "assets/images/hero-carousel-02-manufacturing-floor-570.jpg",
+  "assets/images/hero-carousel-03-pipe-coils-570.jpg",
+  "assets/images/hero-carousel-04-construction-site-570.jpg",
+  "assets/images/hero-carousel-05-engineering-lab-570.jpg",
 ];
 
 let heroIndex = 0;
