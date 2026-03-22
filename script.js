@@ -161,7 +161,9 @@ function initApplicationsCarousel() {
     ...applicationBaseSlides,
   ];
   appsCarousel.replaceChildren();
-  tripled.forEach((slide) => appsCarousel.appendChild(createApplicationCard(slide)));
+  tripled.forEach((slide) =>
+    appsCarousel.appendChild(createApplicationCard(slide)),
+  );
 
   appsCarouselIndex = applicationBaseCount;
   requestAnimationFrame(() => {
@@ -227,7 +229,9 @@ function setProcessStep(stepIndex) {
   const idx = Number(stepIndex);
   if (Number.isNaN(idx)) return;
 
-  processSteps.forEach((s) => s.classList.toggle("active", Number(s.dataset.step) === idx));
+  processSteps.forEach((s) =>
+    s.classList.toggle("active", Number(s.dataset.step) === idx),
+  );
   processPanels.forEach((p) =>
     p.classList.toggle("active", Number(p.dataset.panel) === idx),
   );
@@ -269,7 +273,8 @@ document.querySelectorAll(".process-image-nav").forEach((btn) => {
     const current = document.querySelector(".process-step.active");
     const currentIndex = Number(current?.dataset.step || "0");
     const direction = Number(btn.dataset.direction || "0");
-    const nextIndex = (currentIndex + direction + totalProcessSteps) % totalProcessSteps;
+    const nextIndex =
+      (currentIndex + direction + totalProcessSteps) % totalProcessSteps;
     setProcessStep(nextIndex);
   });
 });
@@ -296,54 +301,101 @@ if (document.fonts?.ready) {
 }
 
 /* ============================================================
-   TESTIMONIALS CAROUSEL
+   TESTIMONIALS — infinite carousel, auto-advance only (3s)
    ============================================================ */
-const testimonialsEl = document.getElementById("testimonialsCarousel");
-const testimonialCards = testimonialsEl
-  ? testimonialsEl.querySelectorAll(".testimonial-card")
-  : [];
-const totalTestimonialGroups = Math.ceil(testimonialCards.length / 3);
-let testimonialsIdx = 0;
-const dots = document.querySelectorAll(".testimonials-dots .dot");
+(function initTestimonialsCarousel() {
+  const testimonialsEl = document.getElementById("testimonialsCarousel");
+  const testimonialsWrap = document.getElementById("testimonialsWrap");
+  if (!testimonialsEl || !testimonialsWrap) return;
 
-function getCardWidth() {
-  if (testimonialCards.length === 0) return 408;
-  return testimonialCards[0].offsetWidth + 24;
-}
+  const originals = Array.from(
+    testimonialsEl.querySelectorAll(".testimonial-card"),
+  );
+  const count = originals.length;
+  if (count === 0) return;
 
-function updateTestimonials() {
-  if (!testimonialsEl) return;
-  const stride = getCardWidth() * 3;
-  testimonialsEl.style.transform = `translateX(-${testimonialsIdx * stride}px)`;
-  dots.forEach((d, i) => d.classList.toggle("active", i === testimonialsIdx));
-}
-
-window.addEventListener("resize", () => {
-  updateTestimonials();
-});
-
-dots.forEach((dot) => {
-  dot.addEventListener("click", () => {
-    testimonialsIdx = parseInt(dot.dataset.idx, 10);
-    updateTestimonials();
+  const prependFrag = document.createDocumentFragment();
+  originals.forEach((card) => {
+    prependFrag.appendChild(card.cloneNode(true));
   });
-});
+  testimonialsEl.prepend(prependFrag);
 
-// Auto-cycle testimonials every 5 seconds
-let testimonialsTimer = setInterval(() => {
-  testimonialsIdx = (testimonialsIdx + 1) % totalTestimonialGroups;
-  updateTestimonials();
-}, 5000);
-
-dots.forEach((dot) => {
-  dot.addEventListener("click", () => {
-    clearInterval(testimonialsTimer);
-    testimonialsTimer = setInterval(() => {
-      testimonialsIdx = (testimonialsIdx + 1) % totalTestimonialGroups;
-      updateTestimonials();
-    }, 5000);
+  const appendFrag = document.createDocumentFragment();
+  originals.forEach((card) => {
+    appendFrag.appendChild(card.cloneNode(true));
   });
-});
+  testimonialsEl.appendChild(appendFrag);
+
+  const cards = () => testimonialsEl.querySelectorAll(".testimonial-card");
+  const middleSetStart = count;
+
+  function getSetWidth() {
+    const c = cards();
+    if (c.length < middleSetStart + 1) return 0;
+    return c[middleSetStart].offsetLeft - c[0].offsetLeft;
+  }
+
+  function getStride() {
+    const c = cards();
+    if (!c.length) return 408;
+    const gap = parseFloat(getComputedStyle(testimonialsEl).gap) || 24;
+    return c[0].offsetWidth + gap;
+  }
+
+  function normalizeScroll() {
+    const setWidth = getSetWidth();
+    if (setWidth <= 0) return;
+    const min = setWidth * 0.5;
+    const max = setWidth * 1.5;
+    if (testimonialsWrap.scrollLeft < min) {
+      testimonialsWrap.scrollLeft += setWidth;
+    } else if (testimonialsWrap.scrollLeft > max) {
+      testimonialsWrap.scrollLeft -= setWidth;
+    }
+  }
+
+  function centerInitialCard() {
+    const c = cards();
+    if (!c.length) return;
+    const card = c[middleSetStart + Math.floor(count / 2)];
+    testimonialsWrap.scrollLeft =
+      card.offsetLeft + card.offsetWidth / 2 - testimonialsWrap.clientWidth / 2;
+  }
+
+  function advanceTestimonials() {
+    testimonialsWrap.scrollBy({ left: getStride(), behavior: "smooth" });
+  }
+
+  const testimonialsTimer = setInterval(advanceTestimonials, 3000);
+
+  testimonialsWrap.addEventListener(
+    "scroll",
+    () => {
+      normalizeScroll();
+    },
+    { passive: true },
+  );
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      centerInitialCard();
+      normalizeScroll();
+    });
+  });
+
+  let resizeTimer;
+  window.addEventListener(
+    "resize",
+    () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        centerInitialCard();
+        normalizeScroll();
+      }, 120);
+    },
+    { passive: true },
+  );
+})();
 
 /* ============================================================
    NAVBAR SCROLL SHADOW
