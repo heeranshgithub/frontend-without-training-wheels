@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Urbanist:wght@500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Urbanist:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
@@ -1079,90 +1079,115 @@
             </div>
           </div>
         </div>
-
-        <!-- <div class="testimonials-dots" id="testimonialsDots">
-          <button class="dot active" data-idx="0"></button>
-          <button class="dot" data-idx="1"></button>
-        </div> -->
       </div>
     </section>
 
     <!-- ===================== PRODUCTS PORTFOLIO ===================== -->
     <section class="products-section" id="products">
-      <div class="container">
-        <div class="section-header centered">
+      <div class="container products-section-inner">
+        <div class="section-header centered products-section-header">
           <h2>Complete Piping Solutions Portfolio</h2>
           <p>
-            Comprehensive range of HDPE pipes, fittings, and services for every
-            application.
+            From innovative Two-For-One Twisters to specialized heat setting
+            machines, we deliver complete solutions for modern textile
+            manufacturing.
           </p>
         </div>
 
         <div class="products-grid">
-          <div class="product-card">
-            <div class="product-img">
-              <img
-                src="assets/images/product-hdpe-fittings-400.jpg"
-                alt="HDPE Fittings"
-              />
+          <article class="product-card">
+            <h3 class="product-card-title">HDPE Fittings &amp; Accessories</h3>
+            <p class="product-card-desc">
+              Complete range of electrofusion and butt fusion fittings,
+              including elbows, tees, reducers, and couplers for seamless pipe
+              connections.
+            </p>
+            <div class="product-card-media">
+              <div class="product-img">
+                <img
+                  src="assets/images/portfolio-fittings.png"
+                  alt=""
+                  width="400"
+                  height="175"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <button type="button" class="product-learn-more">
+                Learn More
+              </button>
             </div>
-            <div class="product-body">
-              <h3>HDPE Fittings &amp; Accessories</h3>
-              <p>
-                Complete range of electrofusion and butt fusion fittings,
-                including elbows, tees, reducers, and couplers for seamless pipe
-                connections.
-              </p>
-              <button class="btn-outline-dark">View Details</button>
-            </div>
-          </div>
+          </article>
 
-          <div class="product-card">
-            <div class="product-img">
-              <img
-                src="assets/images/product-installation-400.jpg"
-                alt="Installation"
-              />
+          <article class="product-card">
+            <h3 class="product-card-title">
+              Professional Installation Services
+            </h3>
+            <p class="product-card-desc">
+              Expert installation and fusion welding services ensuring optimal
+              system performance, compliance with standards, and long-term
+              reliability.
+            </p>
+            <div class="product-card-media">
+              <div class="product-img">
+                <img
+                  src="assets/images/portfolio-installations.png"
+                  alt=""
+                  width="400"
+                  height="175"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <button type="button" class="product-learn-more">
+                Learn More
+              </button>
             </div>
-            <div class="product-body">
-              <h3>Professional Installation Services</h3>
-              <p>
-                Expert installation and fusion welding services ensuring optimal
-                system performance, compliance with standards, and long-term
-                reliability.
-              </p>
-              <button class="btn-outline-dark">View Details</button>
-            </div>
-          </div>
+          </article>
 
-          <div class="product-card">
-            <div class="product-img">
-              <img
-                src="assets/images/product-pe-rt-pipes-400.jpg"
-                alt="PE-RT Pipes"
-              />
+          <article class="product-card">
+            <h3 class="product-card-title">PE-RT Heating Pipes</h3>
+            <p class="product-card-desc">
+              Polyethylene of Raised Temperature resistance pipes ideal for
+              underfloor heating, radiator connections, and hot water
+              applications.
+            </p>
+            <div class="product-card-media">
+              <div class="product-img">
+                <img
+                  src="assets/images/portfolio-fittings.png"
+                  alt=""
+                  width="400"
+                  height="175"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <button type="button" class="product-learn-more">
+                Learn More
+              </button>
             </div>
-            <div class="product-body">
-              <h3>PE-RT Heating Pipes</h3>
-              <p>
-                Polyethylene of Raised Temperature resistance pipes ideal for
-                underfloor heating, radiator connections, and hot water
-                applications.
-              </p>
-              <button class="btn-outline-dark">View Details</button>
-            </div>
-          </div>
+          </article>
         </div>
 
         <div class="products-banner">
-          <div>
-            <h3>Didn't find what you're looking for?</h3>
-            <p>
-              Talk to our experts for custom solutions and tailored guidance.
+          <div class="products-banner-text">
+            <p class="products-banner-title">
+              Didn't find what
+              <span class="products-banner-accent">you're looking for?</span>
+            </p>
+            <p class="products-banner-sub">
+              Talk to our experts for custom solutions and tailored guidence.
             </p>
           </div>
-          <button class="btn-primary">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <button type="button" class="btn-primary products-banner-cta">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden="true"
+            >
               <path
                 d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11 19.79 19.79 0 01.1 2.38 2 2 0 012.08.01h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.07 6.07l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"
                 stroke="white"
@@ -1171,7 +1196,7 @@
                 stroke-linejoin="round"
               />
             </svg>
-            Call Our Experts
+            Talk to an Expert
           </button>
         </div>
       </div>
@@ -1241,44 +1266,69 @@
     <!-- ===================== CTA / CONTACT ===================== -->
     <section class="cta-section" id="contact">
       <div class="container">
-        <div class="cta-grid">
-          <div class="cta-left">
-            <h2>Ready to Transform Your Infrastructure?</h2>
-            <p>
-              Get a personalized consultation and quote for piping solutions
-              tailored to your specific project requirements.
-            </p>
-            <div class="cta-contact-detail">
+        <div class="cta-card">
+          <div class="cta-grid">
+            <div class="cta-left">
+              <h2>Ready to Transform Your Textile Manufacturing?</h2>
               <p>
-                For immediate assistance, call us at
-                <strong>+91-XXX-XXX-XXXX</strong><br />or email us at
-                <strong>info@meeraind.com</strong>
+                Get a personalized consultation and quote for machinery
+                solutions tailored to your specific production requirements.
               </p>
+              <div class="cta-contact-detail">
+                <p>
+                  For immediate assistance, feel free to give us a direct call
+                  at <strong>+91-XXX-XXX-XXXX</strong>. You can also send us a
+                  quick email at
+                  <a href="mailto:info@meeraind.com" class="cta-email-link"
+                    >info@meeraind.com</a
+                  >
+                </p>
+              </div>
             </div>
-          </div>
-          <div class="cta-form-box">
-            <h3>Get a Quote</h3>
-            <div class="form-row">
-              <input type="text" class="form-input" placeholder="Your Name" />
+            <div class="cta-form-box">
+              <h3>Contact Us Today</h3>
+              <div class="form-row">
+                <input
+                  type="text"
+                  class="form-input"
+                  placeholder="Full Name"
+                  autocomplete="name"
+                />
+              </div>
+              <div class="form-row">
+                <input
+                  type="text"
+                  class="form-input"
+                  placeholder="Company Name"
+                  autocomplete="organization"
+                />
+              </div>
+              <div class="form-row">
+                <input
+                  type="email"
+                  class="form-input"
+                  placeholder="Email Address"
+                  autocomplete="email"
+                />
+              </div>
+              <div class="form-row cta-phone-row">
+                <select
+                  class="form-input form-input-phone-cc"
+                  aria-label="Country code"
+                >
+                  <option value="+91">+91</option>
+                </select>
+                <input
+                  type="tel"
+                  class="form-input form-input-phone"
+                  placeholder="7003026616"
+                  autocomplete="tel-national"
+                />
+              </div>
+              <button type="submit" class="btn-cta-submit btn-full">
+                Request Custom Quote
+              </button>
             </div>
-            <div class="form-row">
-              <input
-                type="email"
-                class="form-input"
-                placeholder="Email Address"
-              />
-            </div>
-            <div class="form-row">
-              <input
-                type="text"
-                class="form-input"
-                placeholder="Company Name"
-              />
-            </div>
-            <div class="form-row">
-              <input type="tel" class="form-input" placeholder="Phone Number" />
-            </div>
-            <button class="btn-primary btn-full">Submit Request</button>
           </div>
         </div>
       </div>
@@ -1288,15 +1338,18 @@
     <footer class="footer" id="footer">
       <div class="footer-top-bar">
         <div class="container">
-          <div class="footer-brand-row">
-            <img
-              src="assets/images/mangalam-hdpe-logo-footer.png"
-              alt="Mangalam HDPE Pipes"
-              class="footer-logo"
-            />
-            <p class="footer-tagline">
-              Premium HDPE Pipes &amp; Fittings Manufacturer in South India
-            </p>
+          <div class="footer-brand-card">
+            <div class="footer-brand-row">
+              <img
+                src="assets/images/mangalam-hdpe-logo-footer.png"
+                alt="Mangalam HDPE Pipes"
+                class="footer-logo"
+              />
+              <p class="footer-tagline">
+                Premium HDPE Pipes &amp; Fittings<br />
+                Manufacturer in South India
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -1306,133 +1359,104 @@
           <div class="footer-cols">
             <div class="footer-col">
               <h4>About Us</h4>
-              <a href="#">Our Story</a>
-              <a href="#">Why Mangalam</a>
-              <a href="#">Certifications</a>
+              <a href="#">About Us</a>
             </div>
             <div class="footer-col">
               <h4>Categories</h4>
-              <a href="#">HDPE Pipes</a>
-              <a href="#">HDPE Coils</a>
-              <a href="#">HDPE Fittings</a>
-              <a href="#">PE-RT Pipes</a>
-              <a href="#">Accessories</a>
-              <a href="#">Services</a>
+              <a href="#">Packaging Industry Solutions</a>
+              <a href="#">Fishnet Manufacturing</a>
+              <a href="#">PPMF/Tapes and Twines</a>
+              <a href="#">FIBC and Woven Sack</a>
+              <a href="#">Carpet and Rugs Industry</a>
+              <a href="#">Technical Textiles</a>
             </div>
             <div class="footer-col">
               <h4>Products</h4>
-              <a href="#">PN 4 Series</a>
-              <a href="#">PN 6 Series</a>
-              <a href="#">PN 8 Series</a>
-              <a href="#">PN 10 Series</a>
-              <a href="#">PN 12.5 Series</a>
-              <a href="#">PN 16 Series</a>
+              <a href="#">Two For One Twister</a>
+              <a href="#">TPRS Twister Machine</a>
+              <a href="#">Ring Twisting Machines</a>
+              <a href="#">Covering Machines</a>
+              <a href="#">Heat Setting Equipment</a>
+              <a href="#">Servo Controlled Winders</a>
             </div>
             <div class="footer-col footer-contact-col">
               <h4>Contact</h4>
               <div class="footer-contact-list">
                 <div class="footer-contact-item">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                    <path
-                      d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"
-                      stroke="rgba(255,255,255,0.55)"
-                      stroke-width="1.5"
-                    />
-                    <circle
-                      cx="12"
-                      cy="10"
-                      r="3"
-                      stroke="rgba(255,255,255,0.55)"
-                      stroke-width="1.5"
-                    />
-                  </svg>
+                  <img
+                    src="assets/svgs/map-pin.svg"
+                    alt=""
+                    width="16"
+                    height="16"
+                    class="footer-contact-icon"
+                    aria-hidden="true"
+                  />
                   <span
                     >2126, Road No. 2, GIDC Sachin, Surat - 394 230 Gujarat,
                     India</span
                   >
                 </div>
                 <div class="footer-contact-item">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                    <path
-                      d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11 19.79 19.79 0 01.1 2.38 2 2 0 012.08.01h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.07 6.07l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"
-                      stroke="rgba(255,255,255,0.55)"
-                      stroke-width="1.5"
-                    />
-                  </svg>
+                  <img
+                    src="assets/svgs/phone.svg"
+                    alt=""
+                    width="16"
+                    height="16"
+                    class="footer-contact-icon"
+                    aria-hidden="true"
+                  />
                   <span>+91-XXX-XXX-XXXX</span>
                 </div>
                 <div class="footer-contact-item">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                    <rect
-                      x="2"
-                      y="4"
-                      width="20"
-                      height="16"
-                      rx="2"
-                      stroke="rgba(255,255,255,0.55)"
-                      stroke-width="1.5"
-                    />
-                    <path
-                      d="M2 8l10 6 10-6"
-                      stroke="rgba(255,255,255,0.55)"
-                      stroke-width="1.5"
-                    />
-                  </svg>
+                  <img
+                    src="assets/svgs/envelope.svg"
+                    alt=""
+                    width="16"
+                    height="16"
+                    class="footer-contact-icon"
+                    aria-hidden="true"
+                  />
                   <span>info@meeraind.com</span>
                 </div>
                 <div class="footer-contact-item">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                    <path
-                      d="M3 18v-6a9 9 0 0118 0v6"
-                      stroke="rgba(255,255,255,0.55)"
-                      stroke-width="1.5"
-                    />
-                    <path
-                      d="M21 19a2 2 0 01-2 2h-1a2 2 0 01-2-2v-3a2 2 0 012-2h3zM3 19a2 2 0 002 2h1a2 2 0 002-2v-3a2 2 0 00-2-2H3z"
-                      stroke="rgba(255,255,255,0.55)"
-                      stroke-width="1.5"
-                    />
-                  </svg>
+                  <img
+                    src="assets/svgs/headphone.svg"
+                    alt=""
+                    width="13"
+                    height="14"
+                    class="footer-contact-icon footer-contact-icon--headphone"
+                    aria-hidden="true"
+                  />
                   <span>support@meeraind.com</span>
                 </div>
               </div>
               <div class="footer-socials">
                 <a href="#" aria-label="LinkedIn" class="social-btn">
-                  <svg
+                  <img
+                    src="assets/svgs/linkedin.svg"
+                    alt=""
                     width="16"
                     height="16"
-                    viewBox="0 0 24 24"
-                    fill="rgba(255,255,255,0.6)"
-                  >
-                    <path
-                      d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"
-                    />
-                    <circle cx="4" cy="4" r="2" />
-                  </svg>
+                    aria-hidden="true"
+                  />
                 </a>
                 <a href="#" aria-label="Twitter" class="social-btn">
-                  <svg
+                  <img
+                    src="assets/svgs/twitter.svg"
+                    alt=""
                     width="16"
                     height="16"
-                    viewBox="0 0 24 24"
-                    fill="rgba(255,255,255,0.6)"
-                  >
-                    <path
-                      d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"
-                    />
-                  </svg>
+                    aria-hidden="true"
+                  />
                 </a>
-                <a href="#" aria-label="Facebook" class="social-btn">
-                  <svg
+                <a href="#" aria-label="Instagram" class="social-btn">
+                  <img
+                    src="assets/svgs/instagram.svg"
+                    alt=""
                     width="16"
                     height="16"
-                    viewBox="0 0 24 24"
-                    fill="rgba(255,255,255,0.6)"
-                  >
-                    <path
-                      d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"
-                    />
-                  </svg>
+                    aria-hidden="true"
+                  />
                 </a>
               </div>
             </div>
