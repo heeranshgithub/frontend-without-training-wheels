@@ -1051,78 +1051,113 @@ h3 {
    ============================================================ */
 .manufacturing-section {
   padding: 100px 0;
-  background: var(--bg-25);
+  background: #f8f9fb;
+  border-bottom: 1px solid #e1e3e8;
+  position: relative;
+  overflow: hidden;
+}
+
+.manufacturing-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("https://www.figma.com/api/mcp/asset/1d1baa20-f755-4297-97cf-69fa06668d2d");
+  background-size: 1024px 1024px;
+  background-position: top left;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.manufacturing-section .container {
+  position: relative;
+  z-index: 1;
+}
+
+.manufacturing-section .section-header {
+  max-width: 800px;
+  margin: 0 auto 56px;
+}
+
+.manufacturing-section .section-header h2 {
+  font-family: "Urbanist", sans-serif;
+  font-size: 44px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #0d0d0d;
+}
+
+.manufacturing-section .section-header p {
+  margin-top: 20px;
+  font-family: "Inter", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: -0.006em;
+  color: #4d545c;
 }
 
 .process-card {
   background: #fff;
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 36px 32px;
-  margin-top: 0;
+  border: 1.25px solid #cfd1d4;
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: 0 16px 32px -12px rgba(88, 92, 95, 0.1);
 }
 
 .process-steps-row {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
   position: relative;
-  margin-bottom: 48px;
-  padding: 0 8px;
+  margin-bottom: 32px;
+  flex-wrap: nowrap;
 }
 
+/* Position and width set by script.js to span first↔last pill centers only */
 .process-line-bg {
   position: absolute;
-  top: 7px;
-  left: 8px;
-  right: 8px;
+  top: 50%;
+  left: 0;
+  width: 0;
   height: 2px;
-  background: var(--border);
+  background: #d8dade;
+  transform: translateY(-50%);
   z-index: 0;
+  pointer-events: none;
 }
 
 .process-step {
-  display: flex;
-  flex-direction: column;
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
+  justify-content: center;
+  height: 36px;
+  padding: 8px 20px;
   cursor: pointer;
   z-index: 1;
-  background: none;
-  color: var(--text-600);
-  font-size: 12px;
+  background: #fff;
+  border: 1px solid #cfd1d4;
+  border-radius: 32px;
+  color: #0d0d0d;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
   font-weight: 500;
-  transition: color 0.2s;
-  min-width: 60px;
+  line-height: 20px;
+  letter-spacing: -0.006em;
+  white-space: nowrap;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition:
+    border-color 0.2s,
+    background 0.2s,
+    color 0.2s;
 }
 .process-step.active {
-  color: var(--primary);
+  border-color: rgba(0, 0, 0, 0.12);
+  background: #2b3990;
+  color: #fff;
 }
 .process-step:hover {
-  color: var(--primary);
-}
-
-.step-dot {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: var(--border);
-  border: 2.5px solid #fff;
-  box-shadow: 0 0 0 1.5px var(--border);
-  transition:
-    background 0.2s,
-    box-shadow 0.2s;
-  flex-shrink: 0;
-}
-.process-step.active .step-dot {
-  background: var(--primary);
-  box-shadow: 0 0 0 1.5px var(--primary);
-}
-
-.step-label {
-  white-space: nowrap;
-  text-align: center;
-  line-height: 1.3;
+  border-color: #bfc4ca;
 }
 
 .process-panel {
@@ -1138,13 +1173,19 @@ h3 {
 .panel-text h3 {
   font-family: "Urbanist", sans-serif;
   font-size: 28px;
-  color: var(--dark);
+  font-weight: 600;
+  line-height: 1.6;
+  letter-spacing: -0.006em;
+  color: #0d0d0d;
   margin-bottom: 16px;
 }
 .panel-text > p {
-  font-size: 16px;
-  color: var(--text-600);
-  line-height: 1.65;
+  font-family: "Inter", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: #4d545c;
+  line-height: 1.6;
+  letter-spacing: -0.006em;
   margin-bottom: 24px;
 }
 
@@ -1156,20 +1197,140 @@ h3 {
 .panel-checklist li {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
+  font-family: "Inter", sans-serif;
   font-size: 16px;
-  color: var(--text);
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: -0.006em;
+  color: #0d0d0d;
 }
 .panel-checklist li svg {
   flex-shrink: 0;
 }
 
+.panel-image {
+  position: relative;
+  border: 3px solid #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+}
+
 .panel-image img {
   width: 100%;
-  height: 315px;
+  height: 100%;
   object-fit: cover;
-  border-radius: 12px;
   display: block;
+}
+
+.process-image-nav {
+  position: absolute;
+  top: 50%;
+  width: 50px;
+  height: 50px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  border: 1px solid #e1e3e8;
+  background: rgba(255, 255, 255, 0.86);
+  backdrop-filter: blur(6px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.process-image-nav:hover {
+  background: rgba(255, 255, 255, 0.96);
+}
+
+.process-image-nav img {
+  width: 24px;
+  height: 24px;
+}
+
+.process-image-nav-prev {
+  left: 20px;
+}
+
+.process-image-nav-next {
+  right: 20px;
+}
+
+/* arrow.svg points left (←); next button needs right arrow (→) */
+.process-image-nav-next img {
+  transform: rotate(180deg);
+}
+
+@media (max-width: 1200px) {
+  .process-steps-row {
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+  }
+
+  .process-steps-row::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .manufacturing-section .section-header h2 {
+    font-size: 36px;
+  }
+
+  .process-panel.active {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .panel-text > p {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 640px) {
+  .manufacturing-section {
+    padding: 72px 0;
+  }
+
+  .process-card {
+    border-radius: 16px;
+    padding: 20px;
+  }
+
+  .manufacturing-section .section-header {
+    margin-bottom: 36px;
+  }
+
+  .manufacturing-section .section-header h2 {
+    font-size: 32px;
+  }
+
+  .manufacturing-section .section-header p {
+    margin-top: 14px;
+    font-size: 16px;
+  }
+
+  .panel-text h3 {
+    font-size: 24px;
+    line-height: 1.3;
+  }
+
+  .process-image-nav {
+    width: 42px;
+    height: 42px;
+  }
+
+  .process-image-nav-prev {
+    left: 10px;
+  }
+
+  .process-image-nav-next {
+    right: 10px;
+  }
 }
 
 /* ============================================================

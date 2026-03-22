@@ -223,18 +223,77 @@ window.addEventListener("resize", () => {
 const processSteps = document.querySelectorAll(".process-step");
 const processPanels = document.querySelectorAll(".process-panel");
 
+function setProcessStep(stepIndex) {
+  const idx = Number(stepIndex);
+  if (Number.isNaN(idx)) return;
+
+  processSteps.forEach((s) => s.classList.toggle("active", Number(s.dataset.step) === idx));
+  processPanels.forEach((p) =>
+    p.classList.toggle("active", Number(p.dataset.panel) === idx),
+  );
+}
+
 processSteps.forEach((step) => {
   step.addEventListener("click", () => {
-    const idx = step.dataset.step;
-
-    processSteps.forEach((s) => s.classList.remove("active"));
-    processPanels.forEach((p) => p.classList.remove("active"));
-
-    step.classList.add("active");
-    const panel = document.querySelector(`.process-panel[data-panel="${idx}"]`);
-    if (panel) panel.classList.add("active");
+    setProcessStep(step.dataset.step);
   });
 });
+
+const totalProcessSteps = processSteps.length;
+const processArrowIcon = "assets/svgs/arrow.svg";
+
+processPanels.forEach((panel) => {
+  const panelImage = panel.querySelector(".panel-image");
+  if (!panelImage || panelImage.querySelector(".process-image-nav")) return;
+
+  const prevBtn = document.createElement("button");
+  prevBtn.type = "button";
+  prevBtn.className = "process-image-nav process-image-nav-prev";
+  prevBtn.setAttribute("aria-label", "Previous process step");
+  prevBtn.dataset.direction = "-1";
+  prevBtn.innerHTML = `<img src="${processArrowIcon}" alt="" aria-hidden="true" />`;
+
+  const nextBtn = document.createElement("button");
+  nextBtn.type = "button";
+  nextBtn.className = "process-image-nav process-image-nav-next";
+  nextBtn.setAttribute("aria-label", "Next process step");
+  nextBtn.dataset.direction = "1";
+  nextBtn.innerHTML = `<img src="${processArrowIcon}" alt="" aria-hidden="true" />`;
+
+  panelImage.append(prevBtn, nextBtn);
+});
+
+document.querySelectorAll(".process-image-nav").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    if (totalProcessSteps === 0) return;
+    const current = document.querySelector(".process-step.active");
+    const currentIndex = Number(current?.dataset.step || "0");
+    const direction = Number(btn.dataset.direction || "0");
+    const nextIndex = (currentIndex + direction + totalProcessSteps) % totalProcessSteps;
+    setProcessStep(nextIndex);
+  });
+});
+
+/** Connector line: only between centers of first and last pills (no overhang). */
+function updateProcessStepsConnectorLine() {
+  const row = document.getElementById("processSteps");
+  const line = row?.querySelector(".process-line-bg");
+  const steps = row?.querySelectorAll(".process-step");
+  if (!row || !line || !steps || steps.length < 2) return;
+  const first = steps[0];
+  const last = steps[steps.length - 1];
+  const start = first.offsetLeft + first.offsetWidth / 2;
+  const end = last.offsetLeft + last.offsetWidth / 2;
+  line.style.left = `${start}px`;
+  line.style.width = `${Math.max(0, end - start)}px`;
+}
+
+updateProcessStepsConnectorLine();
+requestAnimationFrame(() => updateProcessStepsConnectorLine());
+window.addEventListener("resize", updateProcessStepsConnectorLine);
+if (document.fonts?.ready) {
+  document.fonts.ready.then(() => updateProcessStepsConnectorLine());
+}
 
 /* ============================================================
    TESTIMONIALS CAROUSEL
