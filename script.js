@@ -12,6 +12,8 @@ const heroImages = [
 
 let heroIndex = 0;
 const heroImg = document.getElementById("heroImg");
+const heroMainImage = document.querySelector(".hero-main-image");
+const heroZoomImg = document.getElementById("heroZoomImg");
 const thumbContainer = document.getElementById("heroThumbs");
 const thumbs = thumbContainer
   ? thumbContainer.querySelectorAll(".hero-thumb")
@@ -21,12 +23,23 @@ thumbs.forEach((thumb, i) => {
   if (heroImages[i]) {
     thumb.style.backgroundImage = `url('${heroImages[i]}')`;
   }
+  thumb.setAttribute("role", "button");
+  thumb.setAttribute("tabindex", "0");
+  thumb.setAttribute("aria-label", `View image ${i + 1}`);
+  thumb.addEventListener("mouseenter", () => setHero(i));
   thumb.addEventListener("click", () => setHero(i));
+  thumb.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      setHero(i);
+    }
+  });
 });
 
 function setHero(idx) {
   heroIndex = (idx + heroImages.length) % heroImages.length;
   if (heroImg) heroImg.src = heroImages[heroIndex];
+  if (heroZoomImg) heroZoomImg.src = heroImages[heroIndex];
   thumbs.forEach((t, i) => t.classList.toggle("active", i === heroIndex));
 }
 
@@ -47,6 +60,30 @@ if (heroNext)
     clearInterval(heroTimer);
     heroTimer = setInterval(() => setHero(heroIndex + 1), 4000);
   });
+
+function syncHeroZoomPosition(event) {
+  if (!heroMainImage || !heroZoomImg) return;
+  const rect = heroMainImage.getBoundingClientRect();
+  const relX = (event.clientX - rect.left) / rect.width;
+  const relY = (event.clientY - rect.top) / rect.height;
+  const x = Math.max(0, Math.min(1, relX));
+  const y = Math.max(0, Math.min(1, relY));
+  const xPercent = `${(x * 100).toFixed(2)}%`;
+  const yPercent = `${(y * 100).toFixed(2)}%`;
+  heroMainImage.style.setProperty("--zoom-x", xPercent);
+  heroMainImage.style.setProperty("--zoom-y", yPercent);
+  heroZoomImg.style.transformOrigin = `${xPercent} ${yPercent}`;
+}
+
+if (heroMainImage && heroZoomImg) {
+  heroMainImage.addEventListener("mouseenter", () => {
+    heroMainImage.classList.add("is-zooming");
+  });
+  heroMainImage.addEventListener("mousemove", syncHeroZoomPosition);
+  heroMainImage.addEventListener("mouseleave", () => {
+    heroMainImage.classList.remove("is-zooming");
+  });
+}
 
 /* ============================================================
    FAQ ACCORDION
