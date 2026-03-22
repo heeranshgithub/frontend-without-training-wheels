@@ -435,6 +435,126 @@ document.querySelectorAll("button.nav-btn, button.nav-cta").forEach((btn) => {
 });
 
 /* ============================================================
+   DATASHEET MODAL
+   ============================================================ */
+const datasheetModal = document.getElementById("datasheetModal");
+const openDatasheetModalBtn = document.getElementById("openDatasheetModalBtn");
+const closeDatasheetModalBtn = document.getElementById("closeDatasheetModalBtn");
+const datasheetEmailInput = document.getElementById("datasheetEmail");
+const datasheetModalForm = datasheetModal?.querySelector(".datasheet-modal-form");
+const datasheetSubmitBtn = datasheetModalForm?.querySelector('button[type="submit"]');
+
+function isValidEmail(value) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
+}
+
+function syncDatasheetSubmitState() {
+  if (!datasheetSubmitBtn || !datasheetEmailInput) return;
+  datasheetSubmitBtn.disabled = !isValidEmail(datasheetEmailInput.value);
+}
+
+function openDatasheetModal() {
+  if (!datasheetModal) return;
+  datasheetModal.classList.add("is-open");
+  datasheetModal.setAttribute("aria-hidden", "false");
+  document.body.classList.add("modal-open");
+  syncDatasheetSubmitState();
+  window.setTimeout(() => datasheetEmailInput?.focus(), 50);
+}
+
+function closeDatasheetModal() {
+  if (!datasheetModal) return;
+  datasheetModal.classList.remove("is-open");
+  datasheetModal.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("modal-open");
+}
+
+if (openDatasheetModalBtn) {
+  openDatasheetModalBtn.addEventListener("click", openDatasheetModal);
+}
+
+if (closeDatasheetModalBtn) {
+  closeDatasheetModalBtn.addEventListener("click", closeDatasheetModal);
+}
+
+if (datasheetModal) {
+  datasheetModal.addEventListener("click", (e) => {
+    if (e.target === datasheetModal) {
+      closeDatasheetModal();
+    }
+  });
+}
+
+if (datasheetEmailInput) {
+  datasheetEmailInput.addEventListener("input", syncDatasheetSubmitState);
+}
+
+if (datasheetModalForm) {
+  datasheetModalForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    closeDatasheetModal();
+  });
+}
+
+/* ============================================================
+   REQUEST CALLBACK MODAL (Request a Quote)
+   ============================================================ */
+const callbackModal = document.getElementById("callbackModal");
+const openCallbackModalBtn = document.getElementById("openCallbackModalBtn");
+const closeCallbackModalBtn = document.getElementById("closeCallbackModalBtn");
+const callbackModalForm = document.getElementById("callbackModalForm");
+const callbackFullNameInput = document.getElementById("callbackFullName");
+
+function openCallbackModal() {
+  if (!callbackModal) return;
+  callbackModal.classList.add("is-open");
+  callbackModal.setAttribute("aria-hidden", "false");
+  document.body.classList.add("modal-open");
+  window.setTimeout(() => callbackFullNameInput?.focus(), 50);
+}
+
+function closeCallbackModal() {
+  if (!callbackModal) return;
+  callbackModal.classList.remove("is-open");
+  callbackModal.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("modal-open");
+}
+
+if (openCallbackModalBtn) {
+  openCallbackModalBtn.addEventListener("click", openCallbackModal);
+}
+
+if (closeCallbackModalBtn) {
+  closeCallbackModalBtn.addEventListener("click", closeCallbackModal);
+}
+
+if (callbackModal) {
+  callbackModal.addEventListener("click", (e) => {
+    if (e.target === callbackModal) {
+      closeCallbackModal();
+    }
+  });
+}
+
+if (callbackModalForm) {
+  callbackModalForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    closeCallbackModal();
+  });
+}
+
+window.addEventListener("keydown", (e) => {
+  if (e.key !== "Escape") return;
+  if (callbackModal?.classList.contains("is-open")) {
+    closeCallbackModal();
+    return;
+  }
+  if (datasheetModal?.classList.contains("is-open")) {
+    closeDatasheetModal();
+  }
+});
+
+/* ============================================================
    DOWNLOAD BUTTON — prevent default navigation
    ============================================================ */
 document.querySelectorAll(".resource-link").forEach((link) => {

@@ -343,7 +343,11 @@
           </table>
         </div>
 
-        <button class="btn-outline-white">
+        <button
+          class="btn-outline-white"
+          id="openDatasheetModalBtn"
+          type="button"
+        >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
             <path
               d="M12 3v13M7 11l5 5 5-5M3 21h18"
@@ -486,7 +490,15 @@
         </div>
 
         <div class="section-cta">
-          <button class="btn-primary">Request a Quote</button>
+          <button
+            class="btn-primary"
+            type="button"
+            id="openCallbackModalBtn"
+            aria-haspopup="dialog"
+            aria-controls="callbackModal"
+          >
+            Request a Quote
+          </button>
         </div>
       </div>
     </section>
@@ -1484,6 +1496,111 @@
         </div>
       </div>
     </footer>
+
+    <div
+      class="datasheet-modal-backdrop"
+      id="datasheetModal"
+      aria-hidden="true"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="datasheetModalTitle"
+    >
+      <div class="datasheet-modal" role="document">
+        <button
+          type="button"
+          class="datasheet-modal-close"
+          id="closeDatasheetModalBtn"
+          aria-label="Close"
+        >
+          ×
+        </button>
+        <h3 id="datasheetModalTitle">Let us email the entire catalogue to you</h3>
+        <form class="datasheet-modal-form">
+          <label for="datasheetEmail">Your Email *</label>
+          <input
+            id="datasheetEmail"
+            type="email"
+            placeholder="example@gmail.com"
+            autocomplete="email"
+            required
+          />
+          <label for="datasheetContact">Your Contact (Optional)</label>
+          <input
+            id="datasheetContact"
+            type="tel"
+            placeholder="+91-0000000000"
+            autocomplete="tel"
+          />
+          <button type="submit" class="btn-primary" disabled>
+            Download Brochure
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div
+      class="datasheet-modal-backdrop"
+      id="callbackModal"
+      aria-hidden="true"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="callbackModalTitle"
+    >
+      <div class="datasheet-modal callback-modal" role="document">
+        <button
+          type="button"
+          class="datasheet-modal-close"
+          id="closeCallbackModalBtn"
+          aria-label="Close"
+        >
+          ×
+        </button>
+        <h3 id="callbackModalTitle">Request a call back</h3>
+        <form class="datasheet-modal-form callback-modal-form" id="callbackModalForm">
+          <label for="callbackFullName">Full Name</label>
+          <input
+            id="callbackFullName"
+            type="text"
+            placeholder="Full Name"
+            autocomplete="name"
+          />
+          <label for="callbackCompany">Company Name</label>
+          <input
+            id="callbackCompany"
+            type="text"
+            placeholder="Company Name"
+            autocomplete="organization"
+          />
+          <label for="callbackEmail">Email Address</label>
+          <input
+            id="callbackEmail"
+            type="email"
+            placeholder="Email Address"
+            autocomplete="email"
+          />
+          <label for="callbackPhone">Phone Number</label>
+          <div class="callback-modal-phone-row">
+            <select
+              id="callbackPhoneCc"
+              class="callback-modal-phone-cc"
+              aria-label="Country code"
+            >
+              <option value="+91">+91</option>
+            </select>
+            <input
+              id="callbackPhone"
+              type="tel"
+              class="callback-modal-phone-input"
+              placeholder="7003026616"
+              autocomplete="tel-national"
+            />
+          </div>
+          <button type="submit" class="btn-primary callback-modal-submit">
+            Submit Form
+          </button>
+        </form>
+      </div>
+    </div>
 
     <script src="script.js"></script>
   </body>
