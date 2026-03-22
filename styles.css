@@ -116,6 +116,11 @@ body > section > .container {
   z-index: 1;
 }
 
+body > section > .apps-carousel-fullbleed {
+  position: relative;
+  z-index: 1;
+}
+
 /* ============================================================
    TYPOGRAPHY
    ============================================================ */
@@ -957,14 +962,22 @@ h3 {
   transform: rotate(180deg);
 }
 
+.apps-carousel-fullbleed {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  box-sizing: border-box;
+}
+
 .apps-carousel-wrap {
   overflow: hidden;
   position: relative;
+  /* Align first card with main .container content (max-width + horizontal padding) */
+  padding-left: calc((100vw - min(var(--layout-max-width), 100vw)) / 2 + 20px);
 }
 
 .apps-carousel {
   display: flex;
-  gap: 16px;
+  gap: 20px;
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -984,11 +997,16 @@ h3 {
   inset: 0;
   width: 100%;
   height: 100%;
+  max-width: none;
   object-fit: cover;
+  object-position: center center;
+  /* Stronger crop / zoom so imagery fills the card like the design reference */
+  transform: scale(1.2);
+  transform-origin: center center;
   transition: transform 0.4s ease;
 }
 .app-card:hover .app-card-bg {
-  transform: scale(1.06);
+  transform: scale(1.26);
 }
 
 .app-card-overlay {

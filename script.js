@@ -65,54 +65,157 @@ faqItems.forEach((item) => {
 });
 
 /* ============================================================
-   APPLICATIONS CAROUSEL
+   APPLICATIONS CAROUSEL (infinite loop, starts at middle)
    ============================================================ */
 const appsCarousel = document.getElementById("appsCarousel");
-const appsCards = appsCarousel
-  ? appsCarousel.querySelectorAll(".app-card")
-  : [];
-let appsIdx = 0;
+const APPS_TRANSITION_MS = 400;
+
+/** One logical slide; repeated APPLICATION_LOOP times, then tripled in DOM for infinite scroll */
+const APPLICATION_SLIDE = {
+  image: "assets/images/application-fishnet.jpg",
+  title: "Fishnet Manufacturing",
+  description:
+    "High-performance twisting solutions for packaging yarn, strapping materials, and reinforcement threads used in modern packaging applications.",
+};
+
+const APPLICATION_LOOP = 6;
+
+const applicationBaseSlides = Array.from({ length: APPLICATION_LOOP }, () => ({
+  ...APPLICATION_SLIDE,
+}));
+
+let applicationBaseCount = 0;
+let appsCarouselIndex = 0;
+let appsCarouselBusy = false;
+
+function createApplicationCard(slide) {
+  const card = document.createElement("div");
+  card.className = "app-card";
+  const img = document.createElement("img");
+  img.className = "app-card-bg";
+  img.src = slide.image;
+  img.alt = slide.title;
+  const overlay = document.createElement("div");
+  overlay.className = "app-card-overlay";
+  const text = document.createElement("div");
+  text.className = "app-card-text";
+  const h3 = document.createElement("h3");
+  h3.textContent = slide.title;
+  const p = document.createElement("p");
+  p.textContent = slide.description;
+  text.append(h3, p);
+  card.append(img, overlay, text);
+  return card;
+}
 
 function getAppsStep() {
-  if (!appsCarousel || appsCards.length === 0) return 436;
+  if (!appsCarousel) return 436;
+  const first = appsCarousel.querySelector(".app-card");
+  if (!first) return 436;
   const gap = parseFloat(getComputedStyle(appsCarousel).columnGap || "0");
-  return appsCards[0].offsetWidth + gap;
+  return first.offsetWidth + gap;
 }
 
-function getMaxAppsIdx() {
-  if (!appsCarousel || appsCards.length === 0) return 0;
-  const step = getAppsStep();
-  const visibleCards = Math.max(1, Math.floor(appsCarousel.parentElement.offsetWidth / step));
-  return Math.max(0, appsCards.length - visibleCards);
-}
-
-function updateApps() {
+function applyAppsTranslate(instant) {
   if (!appsCarousel) return;
-  const cardStep = getAppsStep();
-  const maxAppsIdx = getMaxAppsIdx();
-  appsIdx = Math.min(appsIdx, maxAppsIdx);
-  appsCarousel.style.transform = `translateX(-${appsIdx * cardStep}px)`;
-  const prevBtn = document.getElementById("appsPrev");
-  const nextBtn = document.getElementById("appsNext");
-  if (prevBtn) prevBtn.disabled = appsIdx === 0;
-  if (nextBtn) nextBtn.disabled = appsIdx >= maxAppsIdx;
+  const step = getAppsStep();
+  const x = appsCarouselIndex * step;
+  if (instant) {
+    appsCarousel.style.transition = "none";
+  } else {
+    appsCarousel.style.transition = "";
+  }
+  appsCarousel.style.transform = `translateX(-${x}px)`;
+  if (instant) {
+    void appsCarousel.offsetHeight;
+    appsCarousel.style.transition = "";
+  }
 }
+
+function finishAppsMove(onComplete) {
+  if (!appsCarousel) return;
+  let done = false;
+  const run = () => {
+    if (done) return;
+    done = true;
+    onComplete();
+  };
+  const t = window.setTimeout(run, APPS_TRANSITION_MS + 80);
+  function onEnd(e) {
+    if (e.propertyName !== "transform") return;
+    appsCarousel.removeEventListener("transitionend", onEnd);
+    window.clearTimeout(t);
+    run();
+  }
+  appsCarousel.addEventListener("transitionend", onEnd);
+}
+
+function initApplicationsCarousel() {
+  if (!appsCarousel) return;
+  applicationBaseCount = applicationBaseSlides.length;
+  if (applicationBaseCount === 0) return;
+
+  const tripled = [
+    ...applicationBaseSlides,
+    ...applicationBaseSlides,
+    ...applicationBaseSlides,
+  ];
+  appsCarousel.replaceChildren();
+  tripled.forEach((slide) => appsCarousel.appendChild(createApplicationCard(slide)));
+
+  appsCarouselIndex = applicationBaseCount;
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => applyAppsTranslate(true));
+  });
+}
+
+function goAppsPrev() {
+  if (appsCarouselBusy || !appsCarousel || applicationBaseCount === 0) return;
+  const n = applicationBaseCount;
+  appsCarouselBusy = true;
+  appsCarouselIndex -= 1;
+  applyAppsTranslate(false);
+  finishAppsMove(() => {
+    if (appsCarouselIndex < n) {
+      appsCarouselIndex += n;
+      applyAppsTranslate(true);
+    }
+    appsCarouselBusy = false;
+  });
+}
+
+function goAppsNext() {
+  if (appsCarouselBusy || !appsCarousel || applicationBaseCount === 0) return;
+  const n = applicationBaseCount;
+  appsCarouselBusy = true;
+  appsCarouselIndex += 1;
+  applyAppsTranslate(false);
+  finishAppsMove(() => {
+    if (appsCarouselIndex >= 2 * n) {
+      appsCarouselIndex -= n;
+      applyAppsTranslate(true);
+    }
+    appsCarouselBusy = false;
+  });
+}
+
+initApplicationsCarousel();
 
 const appsPrevBtn = document.getElementById("appsPrev");
 const appsNextBtn = document.getElementById("appsNext");
-if (appsPrevBtn)
-  appsPrevBtn.addEventListener("click", () => {
-    appsIdx = Math.max(0, appsIdx - 1);
-    updateApps();
-  });
-if (appsNextBtn)
-  appsNextBtn.addEventListener("click", () => {
-    const maxAppsIdx = getMaxAppsIdx();
-    appsIdx = Math.min(maxAppsIdx, appsIdx + 1);
-    updateApps();
-  });
-window.addEventListener("resize", updateApps);
-updateApps();
+if (appsPrevBtn) {
+  appsPrevBtn.disabled = false;
+  appsPrevBtn.addEventListener("click", goAppsPrev);
+}
+if (appsNextBtn) {
+  appsNextBtn.disabled = false;
+  appsNextBtn.addEventListener("click", goAppsNext);
+}
+window.addEventListener("resize", () => {
+  if (!appsCarousel || applicationBaseCount === 0) return;
+  appsCarouselBusy = false;
+  applyAppsTranslate(true);
+});
 
 /* ============================================================
    MANUFACTURING PROCESS TABS
