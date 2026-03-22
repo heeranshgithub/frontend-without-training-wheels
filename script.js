@@ -71,12 +71,26 @@ const appsCarousel = document.getElementById("appsCarousel");
 const appsCards = appsCarousel
   ? appsCarousel.querySelectorAll(".app-card")
   : [];
-const cardStep = 424; // 400px card + 24px gap
 let appsIdx = 0;
-const maxAppsIdx = Math.max(0, appsCards.length - 3);
+
+function getAppsStep() {
+  if (!appsCarousel || appsCards.length === 0) return 436;
+  const gap = parseFloat(getComputedStyle(appsCarousel).columnGap || "0");
+  return appsCards[0].offsetWidth + gap;
+}
+
+function getMaxAppsIdx() {
+  if (!appsCarousel || appsCards.length === 0) return 0;
+  const step = getAppsStep();
+  const visibleCards = Math.max(1, Math.floor(appsCarousel.parentElement.offsetWidth / step));
+  return Math.max(0, appsCards.length - visibleCards);
+}
 
 function updateApps() {
   if (!appsCarousel) return;
+  const cardStep = getAppsStep();
+  const maxAppsIdx = getMaxAppsIdx();
+  appsIdx = Math.min(appsIdx, maxAppsIdx);
   appsCarousel.style.transform = `translateX(-${appsIdx * cardStep}px)`;
   const prevBtn = document.getElementById("appsPrev");
   const nextBtn = document.getElementById("appsNext");
@@ -93,9 +107,11 @@ if (appsPrevBtn)
   });
 if (appsNextBtn)
   appsNextBtn.addEventListener("click", () => {
+    const maxAppsIdx = getMaxAppsIdx();
     appsIdx = Math.min(maxAppsIdx, appsIdx + 1);
     updateApps();
   });
+window.addEventListener("resize", updateApps);
 updateApps();
 
 /* ============================================================
