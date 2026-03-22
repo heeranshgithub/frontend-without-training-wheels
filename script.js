@@ -592,6 +592,48 @@ window.addEventListener("keydown", (e) => {
 });
 
 /* ============================================================
+   MOBILE NAVBAR HAMBURGER TOGGLE
+   ============================================================ */
+const navHamburger = document.getElementById("navHamburger");
+const navLinksEl = document.getElementById("navLinks");
+
+if (navHamburger && navLinksEl) {
+  navHamburger.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const isOpen = navLinksEl.classList.toggle("is-open");
+    navHamburger.classList.toggle("is-open", isOpen);
+    navHamburger.setAttribute("aria-expanded", String(isOpen));
+  });
+
+  navLinksEl.querySelectorAll("button, a").forEach((el) => {
+    el.addEventListener("click", () => {
+      navLinksEl.classList.remove("is-open");
+      navHamburger.classList.remove("is-open");
+      navHamburger.setAttribute("aria-expanded", "false");
+    });
+  });
+
+  document.addEventListener("click", (e) => {
+    if (
+      !navHamburger.contains(e.target) &&
+      !navLinksEl.contains(e.target)
+    ) {
+      navLinksEl.classList.remove("is-open");
+      navHamburger.classList.remove("is-open");
+      navHamburger.setAttribute("aria-expanded", "false");
+    }
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 768) {
+      navLinksEl.classList.remove("is-open");
+      navHamburger.classList.remove("is-open");
+      navHamburger.setAttribute("aria-expanded", "false");
+    }
+  });
+}
+
+/* ============================================================
    DOWNLOAD BUTTON — prevent default navigation
    ============================================================ */
 document.querySelectorAll(".resource-link").forEach((link) => {
